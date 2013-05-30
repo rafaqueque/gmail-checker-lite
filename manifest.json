@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "Gmail Checker Lite",
+  "description": "Does what it says. Only. No fancy features, just Gmail unread check!",
+  "version": "0.1",
+
+  "background": {
+    "page": "background.html"
+  },
+
+  "permissions": [
+    "https://mail.google.com/",
+    "http://mail.google.com/",
+    "tabs"
+  ],
+
+  "icons": { 
+    "16": "img/icon.png",
+    "48": "img/icon_big.png",
+    "128": "img/icon_big.png"
+  },
+  
+  "browser_action": {
+    "default_title": "Gmail Checker Lite",
+    "default_icon": "img/icon.png"
+  }
+}
