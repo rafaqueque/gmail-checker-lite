@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <style type='text/css'>
+    body 
+    {
+      margin:0;
+      padding:50px;
+      font-family: Helvetica, Arial;
+      font-size:14px;
+    }
+
+    .toolbar_bg 
+    {
+      display:inline-block;
+      background-color: #F8F8F8;
+      background-image: linear-gradient(top,#F8F8F8,#F1F1F1);
+      border: 1px solid #C6C6C6;
+      padding:5px 15px 0px 15px;
+    }
+    .toolbar_bg.dark 
+    {
+      background-color: #CECECE;
+      background-image: linear-gradient(top,#CECECE,#F1F1F1);
+    }
+
+    h2 > span 
+    {
+      color:#CECECE;
+      font-size:14px;
+      font-weight:normal;
+    }
+
+    #alert 
+    {
+      color:green;
+    }
+    </style>
+  </head>
+  <body>
+    <!-- credits to glyphicons.com for email icon -->
+  
+    <h1>Gmail Checker Lite &mdash; options page</h1>
+
+    <br>
+
+  
+    <h2>Icon <span>&mdash; choose the one that suits best</span></h2>
+    <input checked type='radio' name='icon' value='dark' style='vertical-align:middle;'> <div class='toolbar_bg'><img src='img/icon_dark.png'></div> &nbsp;&nbsp;
+    <input type='radio' name='icon' value='light' style='vertical-align:middle;'> <div class='toolbar_bg dark'><img src='img/icon_light.png'></div>
+
+    <br><br>
+      
+    <h2>Check-cycle <span>&mdash; we don't want do bother you every minute</span></h2>
+    Check for new messages every
+    <select name='seconds'>
+      <option selected value='60'>minute</option>
+      <option value='300'>5 minutes</option>
+      <option value='900'>15 minutes</option>
+      <option value='1800'>30 minutes</option>
+      <option value='3600'>hour</option>
+      <option value='7200'>2 hours</option>
+      <option value='14400'>4 hours</option>
+    </select>
+
+    <br><br>
+
+    <br><button id="save">Save changes & reload</button> <span id='alert'></span> 
+
+    <br><br>
+    <br><br>
+
+    <h1>About &mdash; who is he?</h1>
+    <p>My name is Rafael Albuquerque and I'm the developer of this extension. It would be lovely if you review and rate it. Any bug? Check the information below.</p>
+    <p>Get in touch with me on Twitter (<a href='http://www.twitter.com/rafaqueque'>@rafaqueque</a>). Check <a href='http://rafael.pt'>my website</a> for more information and other projects.</p>
+  </body>
+
+  <script src='js/options.js'></script>
+</html>

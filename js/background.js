@@ -2,7 +2,7 @@
 var options = {
   gmail_url: 'https://gmail.com',
   gmail_atom_feed: 'https://mail.google.com/mail/feed/atom',
-  check_cycle: (60 * 60) /* seconds */
+  check_cycle: (60 * localStorage.gml_seconds) /* seconds */
 };
 
 /* function to check Gmail */
