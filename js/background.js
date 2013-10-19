@@ -2,16 +2,23 @@
 var options = {
   gmail_url: 'https://gmail.com',
   gmail_atom_feed: 'https://mail.google.com/mail/feed/atom',
-  check_cycle: (60 * localStorage.gml_seconds) /* seconds */
+  check_cycle: (60 * localStorage.gml_seconds),
+  sound_notification: localStorage.gml_sound_notification ? true : false
 };
 
-/* function to check Gmail */
+/* store e-mail count and preload notification sounds */
+if (options.sound_notification)
+{
+  localStorage.gml_email_count = 0;
+  var soundNotification = new Audio('../sounds/'+localStorage.gml_sound_notification);
+}
+
 function checkGmail()
 {
   /* create a new instance */
   var xhr = new XMLHttpRequest();
 
-  /* open new request to the gmail feed */
+  /* open new request to the gmail_url feed */
   xhr.open("GET", options.gmail_atom_feed, true);
 
   /* set a few options to handle on send */
@@ -31,12 +38,20 @@ function checkGmail()
         {
           chrome.browserAction.setBadgeText({text: count});
           chrome.browserAction.setBadgeBackgroundColor({color: '#ff0000'});
+
+          /* play sound if there's any notifcation sound chosen */
+          if (count > localStorage.gml_email_count && options.sound_notification) 
+          {
+            soundNotification.play();
+          }
         }
         else
         {
           /* remove badge */
           chrome.browserAction.setBadgeText({text: ''});
         }
+
+        localStorage.gml_email_count = count;
       }
       else
       {

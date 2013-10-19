@@ -28,10 +28,12 @@ function saveSettings()
   /* grab the selected values */
   var selected_icon = document.querySelectorAll('input[name="icon"]:checked')[0].value;
   var selected_seconds = document.querySelectorAll('select[name="seconds"]')[0].options[document.querySelectorAll('select[name="seconds"]')[0].selectedIndex].value;
+  var selected_sound_notification = document.querySelectorAll('select[name="sound_notification"]')[0].options[document.querySelectorAll('select[name="sound_notification"]')[0].selectedIndex].value;
 
   /* store with localStorage */
   localStorage.gml_icon = selected_icon;
   localStorage.gml_seconds = selected_seconds;
+  localStorage.gml_sound_notification = selected_sound_notification;
 
   /* alert the user */
   document.querySelectorAll('#alert')[0].innerHTML = "Saved! This window will auto-close in 2 seconds.";
@@ -51,3 +53,13 @@ function saveSettings()
 /* event handler */
 document.addEventListener('DOMContentLoaded', loadSettings);
 document.querySelector('#save').addEventListener('click', saveSettings);
+
+/* preview sounds on change */
+document.querySelector('select[name="sound_notification"]').addEventListener('change', function(){
+  sound_notification = document.querySelectorAll('select[name="sound_notification"]')[0].options[document.querySelectorAll('select[name="sound_notification"]')[0].selectedIndex].value;
+  if (sound_notification != 0)
+  {
+    var soundNotification = new Audio('../sounds/'+sound_notification);
+    soundNotification.play();
+  }
+});
