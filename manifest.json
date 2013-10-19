@@ -3,7 +3,7 @@
 
   "name": "Gmail Checker Lite",
   "description": "Does what it says. Only. No fancy features, just Gmail unread check!",
-  "version": "0.1.2",
+  "version": "0.2.0",
 
   "background": {
     "page": "background.html"
