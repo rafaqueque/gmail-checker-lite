@@ -4,7 +4,12 @@ function loadSettings() {
     dark: 0,
     light: 1
   };
+  var parseClickAction = {
+    primary: 0,
+    first: 1
+  }
   document.querySelectorAll('input[name="icon"]')[parseIcon[localStorage.gml_icon]].checked = true;
+  document.querySelectorAll('input[name="icon_click_action"]')[parseClickAction[localStorage.gml_icon_click_action]].checked = true;
 
   var parseSeconds = {
     60: 0,
@@ -23,10 +28,12 @@ function saveSettings() {
   var selected_icon = document.querySelectorAll('input[name="icon"]:checked')[0].value;
   var selected_seconds = document.querySelectorAll('select[name="seconds"]')[0].options[document.querySelectorAll('select[name="seconds"]')[0].selectedIndex].value;
   var selected_sound_notification = document.querySelectorAll('select[name="sound_notification"]')[0].options[document.querySelectorAll('select[name="sound_notification"]')[0].selectedIndex].value;
+  var selected_icon_click_action = document.querySelectorAll('input[name="icon_click_action"]:checked')[0].value;
 
   localStorage.gml_icon = selected_icon;
   localStorage.gml_seconds = selected_seconds;
   localStorage.gml_sound_notification = selected_sound_notification;
+  localStorage.gml_icon_click_action = selected_icon_click_action;
 
   document.querySelectorAll('#alert')[0].innerHTML = "Saved! This window will auto-close in 2 seconds.";
 

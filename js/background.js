@@ -10,7 +10,8 @@ function gmailCheckerLite() {
         gmail_atom_feed: 'https://mail.google.com/mail/feed/atom',
         check_cycle: (1000 * localStorage.gml_seconds),
         sound_notification: localStorage.gml_sound_notification ? true : false,
-        sound_notification_filepath: '../sounds/'+localStorage.gml_sound_notification
+        sound_notification_filepath: '../sounds/'+localStorage.gml_sound_notification,
+        icon_click_action: localStorage.gml_icon_click_action,
     };
     
     // method that takes care of the initialization of the class
@@ -29,11 +30,21 @@ function gmailCheckerLite() {
         setInterval(function(){ self.check(); }, options.check_cycle);
 
         chrome.browserAction.onClicked.addListener(function (tab) {
+            switch(options.icon_click_action) {
+                default:
+                case 'primary':
+                    url_match = 'mail.google.com/mail/u/0';
+                    break;
+                case 'first':
+                    url_match = 'mail.google.com';
+                    break;
+            }
+
             chrome.tabs.getAllInWindow(undefined, function(tabs) {
                 for (var i = 0, tab; tab = tabs[i]; i++) {
-                    if (tab.url.indexOf('mail.google.com') > -1) {
-                    chrome.tabs.update(tab.id, {selected: true});
-                    return true;
+                    if (tab.url.indexOf(url_match) > -1) {
+                        chrome.tabs.update(tab.id, {selected: true});
+                        return true;
                     }
                 }
 
