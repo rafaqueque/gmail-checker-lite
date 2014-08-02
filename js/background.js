@@ -6,8 +6,8 @@ function gmailCheckerLite() {
 
     // main options & configuration
     this.options = {
-        gmail_url: 'https://gmail.com',
-        gmail_atom_feed: 'https://mail.google.com/mail/feed/atom',
+        gmail_url: 'https://mail.google.com',
+        gmail_atom_feed: 'https://mail.google.com/mail/u/0/feed/atom',
         check_cycle: (1000 * localStorage.gml_seconds),
         sound_notification: localStorage.gml_sound_notification ? true : false,
         sound_notification_filepath: '../sounds/'+localStorage.gml_sound_notification,
@@ -33,10 +33,10 @@ function gmailCheckerLite() {
             switch(options.icon_click_action) {
                 default:
                 case 'primary':
-                    url_match = 'mail.google.com/mail/u/0';
+                    url_match = options.gmail_url+'/mail/u/0';
                     break;
                 case 'first':
-                    url_match = 'mail.google.com';
+                    url_match = options.gmail_url;
                     break;
             }
 
@@ -49,7 +49,7 @@ function gmailCheckerLite() {
                 }
 
                 chrome.tabs.create({
-                    url: gmail.options.gmail_url
+                    url: options.gmail_url
                 });
             });
         });
