@@ -50,7 +50,16 @@
     <input type='radio' name='icon' value='light' style='vertical-align:middle;'> <div class='toolbar_bg dark'><img src='img/icon_light.png'></div>
 
     <br><br>
-      
+
+    <h2>Inbox feed <span>&mdash; check all e-mails or the ones inside 'Primary' category?</span></h2>
+    <input checked type='radio' name='atom_feed' id='inbox_all' value='https://mail.google.com/mail/u/0/feed/atom/'> 
+    <label for='inbox_all'>All e-mails</label>
+    <br>
+    <input type='radio' name='atom_feed' id='inbox_primary' value='https://mail.google.com/mail/u/0/feed/atom/%5Esmartlabel_personal'>
+    <label for='inbox_primary'>Only e-mails inside the 'Primary' category</label>
+
+    <br><br>     
+
     <h2>Check-cycle <span>&mdash; we don't want do bother you every minute</span></h2>
     Check for new messages every
     <select name='seconds'>

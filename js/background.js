@@ -1,19 +1,19 @@
 function gmailCheckerLite() {
     // private vars
     var options;
-    var xhr; 
+    var xhr;
     var soundNotification;
 
     // main options & configuration
     this.options = {
         gmail_url: 'https://mail.google.com',
-        gmail_atom_feed: 'https://mail.google.com/mail/u/0/feed/atom',
+        gmail_atom_feed: localStorage.gml_atom_feed,
         check_cycle: (1000 * localStorage.gml_seconds),
         sound_notification: localStorage.gml_sound_notification ? true : false,
         sound_notification_filepath: '../sounds/'+localStorage.gml_sound_notification,
         icon_click_action: localStorage.gml_icon_click_action,
     };
-    
+
     // method that takes care of the initialization of the class
     this.setup = function() {
         self = this;
