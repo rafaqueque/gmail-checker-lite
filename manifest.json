@@ -3,7 +3,7 @@
 
   "name": "Gmail Checker Lite",
   "description": "Does what it says. Only. No fancy features, just Gmail unread check!",
-  "version": "0.2.4",
+  "version": "0.2.5",
 
   "background": {
     "page": "background.html"
@@ -14,6 +14,8 @@
   "permissions": [
     "https://mail.google.com/",
     "http://mail.google.com/",
+    "https://inbox.google.com/",
+    "http://inbox.google.com/",
     "tabs"
   ],
 
