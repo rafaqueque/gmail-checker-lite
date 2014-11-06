@@ -11,6 +11,9 @@ function init() {
   if (!localStorage.gml_icon_click_action)
     localStorage.gml_icon_click_action = 'primary';
 
+  if (!localStorage.gml_icon_click_url)
+    localStorage.gml_icon_click_url = 'classic';
+
   chrome.browserAction.setIcon({path: "img/icon_"+localStorage.gml_icon+".png"});
 }
 
