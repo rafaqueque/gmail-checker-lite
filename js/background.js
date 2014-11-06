@@ -3,15 +3,17 @@ function gmailCheckerLite() {
     var options;
     var xhr;
     var soundNotification;
-
+    
     // main options & configuration
     this.options = {
         gmail_url: 'https://mail.google.com',
+        inbox_url: 'https://inbox.google.com',
         gmail_atom_feed: localStorage.gml_atom_feed,
         check_cycle: (1000 * localStorage.gml_seconds),
         sound_notification: localStorage.gml_sound_notification ? true : false,
         sound_notification_filepath: '../sounds/'+localStorage.gml_sound_notification,
         icon_click_action: localStorage.gml_icon_click_action,
+        icon_click_url: localStorage.gml_icon_click_url
     };
 
     // method that takes care of the initialization of the class
@@ -28,18 +30,21 @@ function gmailCheckerLite() {
 
         self.check();
         setInterval(function(){ self.check(); }, options.check_cycle);
-
+        
         chrome.browserAction.onClicked.addListener(function (tab) {
-            switch(options.icon_click_action) {
-                default:
-                case 'primary':
-                    url_match = options.gmail_url+'/mail/u/0';
-                    break;
-                case 'first':
-                    url_match = options.gmail_url;
-                    break;
+            if (options.icon_click_url == 'classic') {
+                switch(options.icon_click_action) {
+                    case 'primary':
+                        url_match = options.gmail_url+'/mail/u/0';
+                        break;
+                    case 'first':
+                        url_match = options.gmail_url;
+                        break;
+                }
             }
-
+            else
+                url_match = options.inbox_url;
+            
             chrome.tabs.getAllInWindow(undefined, function(tabs) {
                 for (var i = 0, tab; tab = tabs[i]; i++) {
                     if (tab.url.indexOf(url_match) > -1) {
@@ -49,7 +54,7 @@ function gmailCheckerLite() {
                 }
 
                 chrome.tabs.create({
-                    url: options.gmail_url
+                    url: url_match
                 });
             });
         });
