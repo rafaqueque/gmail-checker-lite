@@ -3,7 +3,7 @@
 
   "name": "Gmail Checker Lite",
   "description": "Does what it says. No fancy features.",
-  "version": "0.2.6",
+  "version": "0.2.7",
 
   "background": {
     "page": "background.html"
