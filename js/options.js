@@ -55,7 +55,12 @@ function saveSettings() {
 
   document.querySelectorAll('#alert')[0].innerHTML = "Saved! This window will auto-close in 2 seconds.";
 
-  chrome.browserAction.setIcon({path: "img/icon_"+localStorage.gml_icon+".png"});
+  chrome.browserAction.setIcon({
+      path: {
+          "19": "img/icon_"+localStorage.gml_icon+".png",
+          "38": "img/icon_"+localStorage.gml_icon+"_retina.png",
+      }
+  });
   chrome.extension.getBackgroundPage().window.location.reload();
 
   setTimeout(function(){ window.close(); }, 2000);

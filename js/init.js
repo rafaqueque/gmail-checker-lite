@@ -14,7 +14,12 @@ function init() {
   if (!localStorage.gml_icon_click_url)
     localStorage.gml_icon_click_url = 'classic';
 
-  chrome.browserAction.setIcon({path: "img/icon_"+localStorage.gml_icon+".png"});
+  chrome.browserAction.setIcon({
+      path: {
+          "19": "img/icon_"+localStorage.gml_icon+".png",
+          "38": "img/icon_"+localStorage.gml_icon+"_retina.png"
+      }
+  });
 }
 
 init();
