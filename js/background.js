@@ -3,12 +3,15 @@ function gmailCheckerLite() {
     var options;
     var xhr;
     var soundNotification;
+    var currentLoggedId = 0;
     
     // main options & configuration
     this.options = {
         gmail_url: 'https://mail.google.com',
         inbox_url: 'https://inbox.google.com',
         gmail_atom_feed: localStorage.gml_atom_feed,
+        gmail_atom_feed_multi: localStorage.gml_atom_feed_multi,
+        gmail_logged_max: 1,    // index based
         check_cycle: (1000 * localStorage.gml_seconds),
         sound_notification: localStorage.gml_sound_notification ? true : false,
         sound_notification_filepath: '../sounds/'+localStorage.gml_sound_notification,
@@ -28,9 +31,10 @@ function gmailCheckerLite() {
             soundNotification = new Audio(options.sound_notification_filepath);
         }
 
+        // check current email
         self.check();
         setInterval(function(){ self.check(); }, options.check_cycle);
-        
+
         chrome.browserAction.onClicked.addListener(function (tab) {
             if (options.icon_click_url == 'classic') {
                 switch(options.icon_click_action) {
@@ -64,21 +68,30 @@ function gmailCheckerLite() {
 
     // method to check the actual gmail unread messages count
     this.check = function() {
+
         if (!xhr)
             return false;
 
-        xhr.open("GET", options.gmail_atom_feed, true);
+        atom_feed = options.gmail_atom_feed
+        currentLoggedId = (!currentLoggedId ? 1 : 0);
+        if (currentLoggedId)
+            atom_feed = options.gmail_atom_feed_multi.replace('__ID__', currentLoggedId);
+
+        // check for emails
+        xhr.open("GET", atom_feed, true);
         xhr.onreadystatechange = function() {
             if (xhr.status == 200) {
                 var xml = xhr.responseXML;
                 if (xml) {
                     var count = xml.getElementsByTagName('fullcount')[0].textContent || 0;
+                    var current_count = localStorage['gml_email_count_'+currentLoggedId]
 
                     if (count > 0) {
+                        custom_color = (!currentLoggedId ? '#ff0000' : '#0000ff');
                         chrome.browserAction.setBadgeText({text: count});
-                        chrome.browserAction.setBadgeBackgroundColor({color: '#ff0000'});
+                        chrome.browserAction.setBadgeBackgroundColor({color: custom_color});
 
-                        if (count > localStorage.gml_email_count && options.sound_notification) {
+                        if (count > current_count && options.sound_notification) {
                             soundNotification.play();
                         }
                     }
@@ -86,7 +99,7 @@ function gmailCheckerLite() {
                         chrome.browserAction.setBadgeText({text: ''});
                     }
 
-                    localStorage.gml_email_count = count;
+                    localStorage['gml_email_count_'+currentLoggedId] = count;
                 }
                 else {
                     chrome.browserAction.setBadgeText({text: '--'});

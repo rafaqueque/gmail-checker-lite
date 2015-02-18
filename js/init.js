@@ -6,7 +6,10 @@ function init() {
     localStorage.gml_seconds = 60;
 
   if (!localStorage.gml_atom_feed)
-    localStorage.gml_atom_feed = 'https://mail.google.com/mail/u/0/feed/atom/';
+    localStorage.gml_atom_feed = 'https://mail.google.com/mail/feed/atom/';
+
+  if (!localStorage.gml_atom_feed_multi)
+    localStorage.gml_atom_feed_multi = 'https://mail.google.com/mail/u/__ID__/feed/atom/';
 
   if (!localStorage.gml_icon_click_action)
     localStorage.gml_icon_click_action = 'primary';
