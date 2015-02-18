@@ -9,6 +9,7 @@ function gmailCheckerLite() {
     this.options = {
         gmail_url: 'https://mail.google.com',
         inbox_url: 'https://inbox.google.com',
+        account_check_type: localStorage.gml_account_check_type,
         gmail_atom_feed: localStorage.gml_atom_feed,
         gmail_atom_feed_multi: localStorage.gml_atom_feed_multi,
         gmail_logged_max: 1,    // index based
@@ -27,7 +28,8 @@ function gmailCheckerLite() {
         options = self.options;
 
         if (options.sound_notification) {
-            localStorage.gml_email_count = 0;
+            localStorage.gml_email_count_0 = 0;
+            localStorage.gml_email_count_1 = 0;
             soundNotification = new Audio(options.sound_notification_filepath);
         }
 
@@ -72,10 +74,15 @@ function gmailCheckerLite() {
         if (!xhr)
             return false;
 
+        // default feed URL
         atom_feed = options.gmail_atom_feed
-        currentLoggedId = (!currentLoggedId ? 1 : 0);
-        if (currentLoggedId)
-            atom_feed = options.gmail_atom_feed_multi.replace('__ID__', currentLoggedId);
+
+        // multi account URL parsing
+        if (options.account_check_type == 'multi') {
+            currentLoggedId = (!currentLoggedId ? 1 : 0);
+            if (currentLoggedId)
+                atom_feed = options.gmail_atom_feed_multi.replace('__ID__', currentLoggedId);
+        }
 
         // check for emails
         xhr.open("GET", atom_feed, true);
@@ -87,9 +94,15 @@ function gmailCheckerLite() {
                     var current_count = localStorage['gml_email_count_'+currentLoggedId]
 
                     if (count > 0) {
-                        custom_color = (!currentLoggedId ? '#ff0000' : '#0000ff');
+
+                        badge_color = '#ff0000';
+                        // if the current feed URL is different from the default one, means
+                        // there's multi account support.
+                        if (options.account_check_type == 'multi')
+                            badge_color = (!currentLoggedId ? '#ff0000' : '#0000ff');
+
                         chrome.browserAction.setBadgeText({text: count});
-                        chrome.browserAction.setBadgeBackgroundColor({color: custom_color});
+                        chrome.browserAction.setBadgeBackgroundColor({color: badge_color});
 
                         if (count > current_count && options.sound_notification) {
                             soundNotification.play();

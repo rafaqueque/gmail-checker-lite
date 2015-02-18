@@ -1,5 +1,9 @@
 // load all settings and apply to the DOM
 function loadSettings() {
+  var parseAccountType = {
+    'single': 0,
+    'multi': 1
+  }
   var parseIcon = {
     'dark': 0,
     'light': 1
@@ -20,6 +24,7 @@ function loadSettings() {
     'https://mail.google.com/mail/u/0/feed/atom/%5Esmartlabel_personal': 1,
   }
 
+  document.querySelectorAll('input[name="account_check_type"]')[parseAccountType[localStorage.gml_account_check_type]].checked = true;
   document.querySelectorAll('input[name="icon"]')[parseIcon[localStorage.gml_icon]].checked = true;
   document.querySelectorAll('input[name="icon_click_action"]')[parseClickAction[localStorage.gml_icon_click_action]].checked = true;
   document.querySelectorAll('input[name="icon_click_url"]')[parseUrl[localStorage.gml_icon_click_url]].checked = true;
@@ -39,6 +44,7 @@ function loadSettings() {
 
 // save settings to the localStorage API
 function saveSettings() {
+  var selected_account_check_type = document.querySelectorAll('input[name="account_check_type"]:checked')[0].value;
   var selected_icon = document.querySelectorAll('input[name="icon"]:checked')[0].value;
   var selected_seconds = document.querySelectorAll('select[name="seconds"]')[0].options[document.querySelectorAll('select[name="seconds"]')[0].selectedIndex].value;
   var selected_sound_notification = document.querySelectorAll('select[name="sound_notification"]')[0].options[document.querySelectorAll('select[name="sound_notification"]')[0].selectedIndex].value;
@@ -46,6 +52,7 @@ function saveSettings() {
   var selected_icon_click_url = document.querySelectorAll('input[name="icon_click_url"]:checked')[0].value;
   var selected_atom_feed = document.querySelectorAll('input[name="atom_feed"]:checked')[0].value;
 
+  localStorage.gml_account_check_type = selected_account_check_type;
   localStorage.gml_icon = selected_icon;
   localStorage.gml_seconds = selected_seconds;
   localStorage.gml_sound_notification = selected_sound_notification;

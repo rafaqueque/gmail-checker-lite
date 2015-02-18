@@ -1,4 +1,7 @@
 function init() {
+  if (!localStorage.gml_account_check_type)
+    localStorage.gml_account_check_type = 'single';
+
   if (!localStorage.gml_icon)
     localStorage.gml_icon = "dark";
 
