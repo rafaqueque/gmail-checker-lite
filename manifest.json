@@ -3,7 +3,7 @@
 
   "name": "Gmail Checker Lite (multi-account)",
   "description": "Does what it says. Supports up to two accounts at the same time. No fancy features.",
-  "version": "0.3.0",
+  "version": "0.3.1",
 
   "background": {
     "page": "background.html"
